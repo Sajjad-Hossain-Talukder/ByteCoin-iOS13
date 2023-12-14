@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource , UIPickerViewDelegate , CoinProtocol {
+class ViewController: UIViewController   {
     
     var coinManager = CoinManager()
     
@@ -25,6 +25,13 @@ class ViewController: UIViewController, UIPickerViewDataSource , UIPickerViewDel
         coinManager.getCurrencyConversion(with: 0)
     }
     
+}
+
+
+//MARK: - UIPickerViewDataSource
+
+extension ViewController : UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -33,25 +40,33 @@ class ViewController: UIViewController, UIPickerViewDataSource , UIPickerViewDel
         return coinManager.currencyArray.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
+}
+
+
+//MARK: - UIPickerViewDelegate
+
+extension ViewController : UIPickerViewDelegate{
+    func pickerView(_ pickerView : UIPickerView, titleForRow row:Int, forComponent component:Int) -> String? {
         return coinManager.currencyArray[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView:UIPickerView, didSelectRow row:Int, inComponent component:Int) {
         coinManager.getCurrencyConversion(with: row)
     }
-    
+}
+
+//MARK: - CoinProtocol
+
+extension ViewController : CoinProtocol {
     func coinPrice(price:String, coinLabel:String) {
         DispatchQueue.main.async {
             self.currencyLabel.text = price
             self.coinLabel.text = coinLabel
         }
     }
-    
-    
-
 }
+
+
 
 
 

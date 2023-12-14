@@ -56,9 +56,6 @@ struct CoinManager {
             delegate!.coinPrice(price: "Error",coinLabel: "#")
         }
     }
+    
+    
 }
-
-
-/*
- https://rest.coinapi.io/v1/exchangerate/BTC/BDT?apikey=CC4B6AF1-9F5D-43AA-B1CB-7ECFAA9F233A
- */
