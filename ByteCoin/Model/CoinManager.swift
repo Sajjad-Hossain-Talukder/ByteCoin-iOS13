@@ -10,6 +10,9 @@ import Foundation
 
 struct CoinManager {
     
+    
+    var delegate : CoinProtocol?
+    
     let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
     let apiKey = "CC4B6AF1-9F5D-43AA-B1CB-7ECFAA9F233A"
     
@@ -46,9 +49,11 @@ struct CoinManager {
         
         do {
             let retrivedData = try decoder.decode(CoinDecoder.self, from: dataString )
-            print(retrivedData.rate)
+            let price = String(format:"%0.1f",retrivedData.rate)
+            let coinLabel = retrivedData.asset_id_quote
+            delegate!.coinPrice(price:price,coinLabel: coinLabel)
         } catch {
-            print(error)
+            delegate!.coinPrice(price: "Error",coinLabel: "#")
         }
     }
 }
